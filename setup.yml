@@ -95,8 +95,17 @@
         groups: "www-data"
         append: yes
 
+    - name: Download WordPress
+      get_url:
+           url: "http://worpress.org/latest.zip"
+           dest: "/tmp/lastest.zip"
+           mode: 0644
+
     - name: Unzip WordPress
-      unarchive: src=wordpress.zip dest=/vagrant/
+      unarchive:
+          src: "/tmp/lastest.zip"
+          dest: "/vagrant/"
+          remote_src: yes
 
     - name: Symlink web root to unzipped WordPress
       file:
