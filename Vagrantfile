@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 #Vagrantf-box uploaded from ftp.lugons.org
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "https://github.com/one-love/vagrant-base-box/releases/download/v0.1-alpha/debian-8.2-x86_64.box"
-  config.vm.network :private_network, ip: "192.168.50.50"
+  config.vm.network :private_network, ip: "192.168.70.70"
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "setup.yml"
