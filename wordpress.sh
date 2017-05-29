@@ -23,4 +23,4 @@ sed -i "s'password_here'${MYSQL_WP_PASSWORD}'" wp-config.php
 
 # Create WordPress DB User
 mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "CREATE DATABASE ${WP_DB_NAME}"
-mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "grant all privileges on ${WP_DB_NAME}.* to '${MYSQL_WP_USER}'@'localhost' identified by '${MYSQL_WP_PASSWORD}'"
+mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "grant all privileges on ${WP_DB_NAME}.* to '${MYSQL_WP_USER}'@'192.168.44.22' identified by '${MYSQL_WP_PASSWORD}'"
