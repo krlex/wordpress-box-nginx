@@ -12,6 +12,7 @@
     - php7.0-gd
     - php-ssh2
     - php7.0-mcrypt
+    - php7.0-fpm
 
 - name: Setup php-fpm
   replace: dest=/etc/php/7.0/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
