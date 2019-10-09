@@ -1,4 +1,4 @@
-- hosts: vagrant-ubuntu-trusty-64
+- hosts: vagrant
 
   roles:
     - nginx
