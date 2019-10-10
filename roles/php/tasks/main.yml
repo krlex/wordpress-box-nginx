@@ -7,15 +7,15 @@
     state: present
   become: yes
   with_items:
-    - php7.0
-    - php7.0-mysql
-    - php7.0-gd
+    - php7.3
+    - php7.3-mysql
+    - php7.3-gd
     - php-ssh2
-    - php7.0-mcrypt
-    - php7.0-fpm
+    - php7.3-fpm
+    - mcrypt
 
 - name: Setup php-fpm
-  replace: dest=/etc/php/7.0/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
+  replace: dest=/etc/php/7.3/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
   notify:
     - restart nginx
   become: yes

@@ -9,14 +9,14 @@
   become: yes
 
 - name: Check if WordPress directory exists in /srv/www
-  stat: path=/srv/www/{{server_hostname}}
+  stat: path=/var/www/{{server_hostname}}
   register: check_path
 
 - name: Download WordPress
-  get_url: 
-    url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz 
-    dest: /tmp/wordpress-{{ wp_version }}.tar.gz 
-    checksum: "sha1:{{ wp_sha1sum }}" 
+  get_url:
+    url: https://wordpress.org/wordpress-{{ wp_version }}.tar.gz
+    dest: /tmp/wordpress-{{ wp_version }}.tar.gz
+    checksum: "sha1:{{ wp_sha1sum }}"
   become: yes
   when: not check_path.stat.exists
 
@@ -31,7 +31,7 @@
   when: not check_path.stat.exists
 
 - name: Move WordPress install files
-  command: mv /tmp/wordpress /srv/www/{{server_hostname}}
+  command: mv /tmp/wordpress /var/www/{{server_hostname}}
   become: yes
   when: not check_path.stat.exists
 

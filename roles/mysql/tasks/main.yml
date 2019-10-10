@@ -4,7 +4,7 @@
   apt:
     name: "{{ item }}"
   with_items:
-    - mysql-server
+    - mariadb-server
     - python-mysqldb
 
 - name: Start the MySQL service
@@ -45,7 +45,7 @@
 - name: Delete anonymous MySQL server user for $server_hostname
   become: true
   action: mysql_user user="" host="{{ server_hostname }}" state="absent"
-  
+
 - name: Delete anonymous MySQL server user for localhost
   become: true
   action: mysql_user user="" state="absent"
