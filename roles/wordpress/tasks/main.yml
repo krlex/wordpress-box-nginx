@@ -2,13 +2,13 @@
 - name: Create webroot
   file:
     state: directory
-    path: /srv/www/
+    path: /var/www/
     owner: root
     group: root
     mode: 0755
   become: yes
 
-- name: Check if WordPress directory exists in /srv/www
+- name: Check if WordPress directory exists in /var/www
   stat: path=/var/www/{{server_hostname}}
   register: check_path
 
@@ -41,12 +41,12 @@
   become: no
 
 - name: Add wp-config
-  template: "src=wp-config.php dest=/srv/www/{{server_hostname}}/wp-config.php"
+  template: "src=wp-config.php dest=/var/www/{{server_hostname}}/wp-config.php"
   become: yes
 
 - name: Update WordPress config file
   lineinfile:
-    dest: "/srv/www/{{server_hostname}}/wp-config.php"
+    dest: "/var/www/{{server_hostname}}/wp-config.php"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
