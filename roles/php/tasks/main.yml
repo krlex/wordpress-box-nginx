@@ -1,5 +1,4 @@
 ---
-# tasks file for php
 
 - name: Install php extensions
   apt:
@@ -8,20 +7,21 @@
   become: yes
   with_items:
     - php7.3
+    - php7.3-cli
+    - php7.3-common
+    - php7.3-readline
     - php7.3-mysql
     - php7.3-gd
-    - php-ssh2
+    - php7.3-curl
+    - php7.3-mbstring
+    - php7.3-json
+    - php7.3-opcache
     - php7.3-fpm
+    - php-ssh2
     - mcrypt
 
 - name: Setup php-fpm
+  become: yes
   replace: dest=/etc/php/7.3/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
   notify:
     - restart nginx
-  become: yes
-
-- name: Add php settings
-  template: src=../../nginx/templates/nginx-wp-common.conf dest=/etc/nginx/nginx-wp-common.conf owner=www-data group=www-data mode=0644
-  notify:
-    - restart nginx
-  become: yes
