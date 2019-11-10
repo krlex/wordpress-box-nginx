@@ -1,3 +1,6 @@
+domain_name: example.com
+letsencrypt_email: office@{{ domain_name }}
+
 # WordPress database settings
 wp_db_name: wordpress
 wp_db_user: wordpress
