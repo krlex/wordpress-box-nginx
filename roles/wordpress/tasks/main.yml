@@ -34,7 +34,6 @@
 - name: Move WordPress install files
   become: yes
   command: mv /tmp/wordpress /var/www/{{server_hostname}}
-  become: yes
   when: not check_path.stat.exists
 
 - name: Fetch random salts for WordPress config
