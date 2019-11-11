@@ -6,3 +6,4 @@
     - mysql
     - php
     - postfix
+    - letsencrypt

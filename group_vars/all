@@ -1,6 +1,3 @@
-domain_name: example.com
-letsencrypt_email: office@{{ domain_name }}
-
 # WordPress database settings
 wp_db_name: wordpress
 wp_db_user: wordpress
@@ -11,7 +8,8 @@ mysql_root_password: root
 
 auto_up_disable: true
 
-server_hostname: vagrant
+server_hostname: wordpress.info
+letsencrypt_email: office@{{ server_hostname }}
 
 # WordPress Version
 wp_version: 5.2.3

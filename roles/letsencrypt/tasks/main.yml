@@ -1,0 +1,24 @@
+---
+
+- name: Install letsencrypt
+  become: yes
+  apt: name=letsencrypt state=latest
+
+- name: Create letsencrypt certificate
+  become: yes
+  shell: letsencrypt certonly -n --webroot -w /var/www/{{ server_hostname }} -m {{ letsencrypt_email }} --agree-tos -d {{ server_hostname }}
+  args:
+    creates: /etc/letsencrypt/live/{{ server_hostname }}
+
+- name: Generate dhparams
+  become: yes
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    create: /etc/nginx/dhparams.pem
+
+- name: Add letsencrypt cronjob for cert renewal
+  become: yes
+  cron:
+    name: letsencrypt_renewal
+    special_time: weekly
+    job: letsencrypt --renew certonly -n --webroot -w /var/www/{{ server_hostname }} -m {{ letsencrypt_email }} --agree-tos -d {{ server_hostname }} && service nginx reload
