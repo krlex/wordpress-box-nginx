@@ -1,24 +1,42 @@
 ---
-
-- name: Install letsencrypt
+- name: Update apt cache
   become: yes
-  apt: name=letsencrypt state=latest
+  apt: update_cache=yes cache_valid_time=86400
 
-- name: Create letsencrypt certificate
+- name: Install depends
   become: yes
-  shell: letsencrypt certonly -n --webroot -w /var/www/{{ server_hostname }} -m {{ letsencrypt_email }} --agree-tos -d {{ server_hostname }}
+  apt: name={{ item }} state=latest
+  with_items:
+    - python3
+    - python3-dev
+    - gcc
+    - dialog
+    - libaugeas0
+    - augeas-lenses
+    - libssl-dev
+    - libffi-dev
+    - ca-certificates
+    - python3-pip
+    - python3-virtualenv
+    - git
+    - libpython3-dev
+    - zlib1g-dev
+
+- name: Lets Encrypt client
+  become: yes
+  git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
+
+- name: Create certificate
+  become: yes
+  shell: ./certbot-auto certonly --webroot --email {{ letsencrypt_email}} --agree-tos --webroot-path=/usr/share/nginx/html -d {{ server_hostname }};
   args:
-    creates: /etc/letsencrypt/live/{{ server_hostname }}
+    chdir: /opt/certbot
 
-- name: Generate dhparams
+- name: Add crontab to renew certificates
   become: yes
-  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
-  args:
-    create: /etc/nginx/dhparams.pem
+  cron: minute="30" hour="2" weekday="1" job="/opt/certbot/certbot-auto renew >> /var/log/le-renew.log"
 
-- name: Add letsencrypt cronjob for cert renewal
+- name: Add crontab to reload server
   become: yes
-  cron:
-    name: letsencrypt_renewal
-    special_time: weekly
-    job: letsencrypt --renew certonly -n --webroot -w /var/www/{{ server_hostname }} -m {{ letsencrypt_email }} --agree-tos -d {{ server_hostname }} && service nginx reload
+  cron: minute="35" hour="2" weekday="1" job="/etc/init.d/nginx reload"
+

@@ -31,6 +31,10 @@
   notify:
     - restart nginx
 
+- name: Generate dhparams file
+  become: yes
+  shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
 - name: Start nginx
   become: yes
   service:
