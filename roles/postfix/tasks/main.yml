@@ -2,7 +2,7 @@
 
 - name: Install postfix
   become: yes
-  apt: name=postfix state=installed
+  apt: name=postfix state=latest
 
 - name: Start postfix
   become: yes
