@@ -1,24 +1,12 @@
 ---
 
 - name: Install php extensions
-  apt:
-    name: "{{ item }}"
-    state: present
   become: yes
-  with_items:
-    - php7.3
-    - php7.3-cli
-    - php7.3-common
-    - php7.3-readline
-    - php7.3-mysql
-    - php7.3-gd
-    - php7.3-curl
-    - php7.3-mbstring
-    - php7.3-json
-    - php7.3-opcache
-    - php7.3-fpm
-    - php-ssh2
-    - mcrypt
+  with_items: "{{ php_packages }}"
+  apt:
+    pkg: "{{ item.name }}"
+    state: present
+
 
 - name: Setup php-fpm
   become: yes

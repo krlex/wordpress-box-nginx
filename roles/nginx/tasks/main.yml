@@ -6,10 +6,11 @@
 
 - name: Install nginx
   become: yes
-  apt: name={{ item }} state=present
-  with_items:
-    - nginx
-    - git
+  with_items: "{{ nginx_packages }}"
+  apt:
+    pkg: "{{ item.name }}"
+    state: latest
+
 
 - name: Update nginx confs for WordPress + PHP
   become: yes

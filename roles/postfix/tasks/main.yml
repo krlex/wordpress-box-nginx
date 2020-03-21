@@ -2,7 +2,10 @@
 
 - name: Install postfix
   become: yes
-  apt: name=postfix state=latest
+  with_items: "{{ postfix_packages }}"
+  apt:
+    pkg: "{{ item.name }}"
+    state: latest
 
 - name: Start postfix
   become: yes
