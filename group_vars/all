@@ -11,8 +11,8 @@ auto_up_disable: true
 server_hostname: vagrant
 
 # WordPress Version
-wp_version: 5.2.3
-wp_sha1sum: 5efd37148788f3b14b295b2a9bf48a1a467aa303
+wp_version: 5.3.2
+wp_sha1sum: fded476f112dbab14e3b5acddd2bcfa550e7b01b
 
 #Define Core Update Level
 #true  = Development, minor, and major updates are all enabled
