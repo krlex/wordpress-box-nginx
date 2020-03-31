@@ -1,8 +1,7 @@
-- hosts: vagrant
-
+- name: Starting Provision
+  hosts: all
   roles:
     - nginx
     - wordpress
     - mysql
     - php
-    - postfix

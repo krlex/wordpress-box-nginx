@@ -1,8 +1,3 @@
 ---
-- name: restart nginx
-  become: yes
-  service: name=nginx state=restarted
-
-- name: restart php7.3-fpm
-  become: yes
-  service: name=php7.3-fpm state=restarted
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"

@@ -1,0 +1,57 @@
+---
+- name: Update package cache
+  become: yes
+  package:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install nginx
+  become: yes
+  with_items: "{{ fedora_nginx_packages }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: latest
+
+
+- name: Update nginx confs for WordPress + PHP
+  become: yes
+  template:
+    src: ../templates/default-site.conf
+    dest: /etc/nginx/sites-available/{{server_hostname}}
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+
+- name: setup for enabling site
+  become: yes
+  file:
+    src: /etc/nginx/sites-available/{{server_hostname}}
+    dest: /etc/nginx/sites-enabled/{{server_hostname}}
+    owner: www-data
+    group: www-data
+    state: link
+
+- name: Enable site
+  become: yes
+  service:
+    name: nginx
+    state: started
+
+- name: Disable and remove default site from Available
+  become: yes
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
+- name: Disable and remove default site from Enabled
+  become: yes
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Restart Nginx
+  become: yes
+  service:
+    name: nginx
+    state: restarted

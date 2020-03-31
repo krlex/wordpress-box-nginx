@@ -5,8 +5,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "debian/buster64"
-  config.vm.network :private_network, ip: "192.168.88.11"
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.network :private_network, ip: "192.168.33.11"
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "playbook.yml"
     ansible.host_key_checking = false
