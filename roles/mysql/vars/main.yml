@@ -9,4 +9,4 @@ ubuntu_mysql_packages:
 
 fedora_mysql_packages:
   - name: mariadb-server
-  - name: python-mysqldb
+  - name: python3-PyMySQL.noarch

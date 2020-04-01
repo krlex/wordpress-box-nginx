@@ -13,13 +13,20 @@
     state: latest
 
 
+- name: Create sites-available
+  become: yes
+  path: /etc/nginx/sites-available/
+  state: directory
+  mode: 0755
+
+
 - name: Update nginx confs for WordPress + PHP
   become: yes
   template:
     src: ../templates/default-site.conf
     dest: /etc/nginx/sites-available/{{server_hostname}}
-    owner: www-data
-    group: www-data
+    owner: {{server_hostname}}
+    group: {{server_hostname}}
     mode: 0644
 
 
@@ -28,27 +35,9 @@
   file:
     src: /etc/nginx/sites-available/{{server_hostname}}
     dest: /etc/nginx/sites-enabled/{{server_hostname}}
-    owner: www-data
-    group: www-data
+    owner: {{server_hostname}}
+    group: {{server_hostname}}
     state: link
-
-- name: Enable site
-  become: yes
-  service:
-    name: nginx
-    state: started
-
-- name: Disable and remove default site from Available
-  become: yes
-  file:
-    path: /etc/nginx/sites-available/default
-    state: absent
-
-- name: Disable and remove default site from Enabled
-  become: yes
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
 
 - name: Restart Nginx
   become: yes

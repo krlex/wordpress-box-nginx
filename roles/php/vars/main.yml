@@ -29,16 +29,16 @@ ubuntu_php_packages:
     - name: mcrypt
 
 fedora_php_packages:
-    - name: php7.3
-    - name: php7.3-cli
-    - name: php7.3-common
-    - name: php7.3-readline
-    - name: php7.3-mysql
-    - name: php7.3-gd
-    - name: php7.3-curl
-    - name: php7.3-mbstring
-    - name: php7.3-json
-    - name: php7.3-opcache
-    - name: php7.3-fpm
+    - name: php
+    - name: php-cli
+    - name: php-common
+    - name: php-readline
+    - name: php-mysqlnd
+    - name: php-gd
+    - name: php-curl
+    - name: php-mbstring
+    - name: php-json
+    - name: php-opcache
+    - name: php-fpm
     - name: php-ssh2
     - name: mcrypt
