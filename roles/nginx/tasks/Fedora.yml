@@ -3,7 +3,6 @@
   become: yes
   package:
     update_cache: yes
-    cache_valid_time: 3600
 
 - name: Install nginx
   become: yes
@@ -12,32 +11,66 @@
     pkg: "{{ item.name }}"
     state: latest
 
+- name: Setup template Nginx.conf
+  become: yes
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
 
 - name: Create sites-available
   become: yes
-  path: /etc/nginx/sites-available/
-  state: directory
-  mode: 0755
+  file:
+    path: /etc/nginx/sites-available/
+    state: directory
+    mode: 0755
 
+- name: Create sites-enabled
+  become: yes
+  file:
+    path: /etc/nginx/sites-enabled/
+    state: directory
+    mode: 0755
 
 - name: Update nginx confs for WordPress + PHP
   become: yes
   template:
-    src: ../templates/default-site.conf
-    dest: /etc/nginx/sites-available/{{server_hostname}}
-    owner: {{server_hostname}}
-    group: {{server_hostname}}
+    src: ../templates/fedora-default-site.conf
+    dest: /etc/nginx/sites-available/{{server_hostname}}.conf
+    owner: "{{server_hostname}}"
+    group: "{{server_hostname}}"
     mode: 0644
 
 
 - name: setup for enabling site
   become: yes
   file:
-    src: /etc/nginx/sites-available/{{server_hostname}}
-    dest: /etc/nginx/sites-enabled/{{server_hostname}}
-    owner: {{server_hostname}}
-    group: {{server_hostname}}
+    src: /etc/nginx/sites-available/{{server_hostname}}.conf
+    dest: /etc/nginx/sites-enabled/{{server_hostname}}.conf
+    owner: "{{server_hostname}}"
+    group: "{{server_hostname}}"
     state: link
+
+- name: set http in firewall
+  become: yes
+  firewalld:
+    service: http
+    permanent: yes
+    zone: public
+    state: enabled
+
+- name: set tcp in firewall
+  become: yes
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    zone: public
+    state: enabled
+
+- name: Reload firewall
+  become: yes
+  command: firewall-cmd --reload
 
 - name: Restart Nginx
   become: yes

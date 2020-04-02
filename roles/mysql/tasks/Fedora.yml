@@ -6,10 +6,9 @@
     pkg: "{{ item.name }}"
     state: latest
 
-- name: Start the MySQL service
-  service:
-    name: mariadb
-    state: started
+- name: Start MySQL
+  become: yes
+  command: service mariadb restart
 
 - name: Set root user password
   become: yes

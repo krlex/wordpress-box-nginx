@@ -46,7 +46,7 @@
   become: yes
   template:
     src: wp-config.php
-    dest: /var/www/{{server_hostname}}/wp-config.php"
+    dest: /var/www/{{server_hostname}}/wp-config.php
 
 - name: Update WordPress config file
   become: yes
