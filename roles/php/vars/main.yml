@@ -42,3 +42,16 @@ fedora_php_packages:
     - name: php-fpm
     - name: php-ssh2
     - name: mcrypt
+
+centos_php_packages:
+    - name: php
+    - name: php-cli
+    - name: php-common
+    - name: php-readline
+    - name: php-mysqlnd
+    - name: php-gd
+    - name: php-curl
+    - name: php-mbstring
+    - name: php-json
+    - name: php-fpm
+    - name: libtomcrypt.x86_64

@@ -1,7 +1,7 @@
 - name: Starting Provision
   hosts: all
   roles:
-    - nginx
-    - wordpress
-    - mysql
-    - php
+     - nginx
+     - wordpress
+     - mysql
+     - php

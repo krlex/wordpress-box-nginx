@@ -9,3 +9,8 @@ ubuntu_nginx_packages:
 fedora_nginx_packages:
   - name: nginx
   - name: curl
+
+centos_nginx_packages:
+  - name: epel-release
+  - name: nginx
+  - name: curl
