@@ -27,8 +27,8 @@
   unarchive:
     src: /tmp/wordpress-{{ wp_version }}.tar.gz
     dest: /tmp
-    owner: "{{server_hostname}}"
-    group: "{{server_hostname}}"
+    owner: nginx
+    group: nginx
     copy: no
   when: not check_path.stat.exists
 

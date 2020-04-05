@@ -1,4 +1,14 @@
 ---
+- name: add new php7.3 extensions
+  become: yes
+  with_items: "{{ centos_new_php }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: present
+
+- name: enable php7.3
+  become: yes
+  shell: yum-config-manager --enable remi-php73
 
 - name: Install php extensions
   become: yes
@@ -16,12 +26,45 @@
     group: root
     remote_src: yes
 
-- name: Setup php-fpm
+- name: Setup template
+  become: yes
+  template:
+    src: roles/php/templates/www.conf.j2
+    dest: /etc/php-fpm.d/www.conf
+    owner: root
+    group: root
+
+- name: Create backup www.conf
+  become: yes
+  copy:
+    src: /etc/php-fpm.d/www.conf
+    dest: /etc/php-fpm.d/www.conf.bak
+    owner: root
+    group: root
+    remote_src: yes
+
+- name: Setup php.ini
   become: yes
   replace:
     dest: /etc/php.ini
     regexp: "(;cgi.fix_pathinfo=1)"
     replace: "cgi.fix_pathinfo=0"
+
+- name: Setup upload max filesize in php.ini
+  become: yes
+  shell: sed -i "s/upload_max_filesize = .*/upload_max_filesize = 128M/" /etc/php.ini
+
+- name: Setup zlib .output in php.ini
+  become: yes
+  shell:  sed -i "s/zlib.output_compression = .*/zlib.output_compression = on/" /etc/php.ini
+
+- name: Setup max exection in php.ini
+  become: yes
+  shell:  sed -i "s/max_execution_time = .*/max_execution_time = 18000/" /etc/php.ini
+
+- name: Setup memory limit in php.ini
+  become: yes
+  shell: sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php.ini
 
 - name: restart php-fpm
   become: yes
