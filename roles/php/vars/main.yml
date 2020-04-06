@@ -46,7 +46,6 @@ fedora_php_packages:
 centos_new_php:
     - name: epel-release
     - name: yum-utils
-    - name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
 centos_php_packages:
     - name: php

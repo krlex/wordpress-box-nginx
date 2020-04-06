@@ -13,4 +13,4 @@ fedora_mysql_packages:
 
 centos_mysql_packages:
   - name: mariadb-server
-  - name: MySQL-python.x86_64
+  - name: python3-PyMySQL.noarch

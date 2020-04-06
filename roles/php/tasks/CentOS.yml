@@ -6,16 +6,20 @@
     pkg: "{{ item.name }}"
     state: present
 
-- name: enable php7.3
-  become: yes
-  shell: yum-config-manager --enable remi-php73
-
 - name: Install php extensions
   become: yes
   with_items: "{{ centos_php_packages }}"
   package:
     pkg: "{{ item.name }}"
     state: present
+
+- name: Setup template php-fpm.conf
+  become: yes
+  template:
+    src: roles/php/templates/php-fpm.conf.j2
+    dest: /etc/nginx/conf.d/php-fpm.conf
+    owner: root
+    group: root
 
 - name: Create backup php.ini
   become: yes
@@ -26,14 +30,6 @@
     group: root
     remote_src: yes
 
-- name: Setup template
-  become: yes
-  template:
-    src: roles/php/templates/www.conf.j2
-    dest: /etc/php-fpm.d/www.conf
-    owner: root
-    group: root
-
 - name: Create backup www.conf
   become: yes
   copy:
@@ -42,6 +38,15 @@
     owner: root
     group: root
     remote_src: yes
+
+- name: Setup template www.conf
+  become: yes
+  template:
+    src: roles/php/templates/www.conf.j2
+    dest: /etc/php-fpm.d/www.conf
+    owner: root
+    group: root
+
 
 - name: Setup php.ini
   become: yes
@@ -65,6 +70,7 @@
 - name: Setup memory limit in php.ini
   become: yes
   shell: sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php.ini
+
 
 - name: restart php-fpm
   become: yes
