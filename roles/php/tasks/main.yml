@@ -1,15 +1,3 @@
 ---
-
-- name: Install php extensions
-  become: yes
-  with_items: "{{ php_packages }}"
-  apt:
-    pkg: "{{ item.name }}"
-    state: present
-
-
-- name: Setup php-fpm
-  become: yes
-  replace: dest=/etc/php/7.3/fpm/php.ini regexp="(;cgi.fix_pathinfo=1)" replace="cgi.fix_pathinfo=0"
-  notify:
-    - restart nginx
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"

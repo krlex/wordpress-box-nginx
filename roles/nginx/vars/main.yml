@@ -1,3 +1,16 @@
-nginx_packages:
+debian_nginx_packages:
   - name: nginx
-  - name: git
+  - name: curl
+
+ubuntu_nginx_packages:
+  - name: nginx
+  - name: curl
+
+fedora_nginx_packages:
+  - name: nginx
+  - name: curl
+
+centos_nginx_packages:
+  - name: epel-release
+  - name: nginx
+  - name: curl

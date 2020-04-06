@@ -1,4 +1,3 @@
 ---
-- name: restart nginx
-  service: name=nginx state=restarted
-  become: yes
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"

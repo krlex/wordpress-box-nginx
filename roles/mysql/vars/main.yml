@@ -1,3 +1,16 @@
-mysql_packages:
+debian_mysql_packages:
   - name: mariadb-server
   - name: python-mysqldb
+
+ubuntu_mysql_packages:
+  - name: mysql-server
+  - name: python-mysqldb
+  - name: python3-pymysql
+
+fedora_mysql_packages:
+  - name: mariadb-server
+  - name: python3-PyMySQL.noarch
+
+centos_mysql_packages:
+  - name: mariadb-server
+  - name: python3-PyMySQL.noarch

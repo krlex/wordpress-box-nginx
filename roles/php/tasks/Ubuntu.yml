@@ -1,0 +1,22 @@
+---
+
+- name: Install php extensions
+  become: yes
+  with_items: "{{ ubuntu_php_packages }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: present
+
+
+- name: Setup php-fpm
+  become: yes
+  replace:
+    dest: /etc/php/7.2/fpm/php.ini
+    regexp: "(;cgi.fix_pathinfo=1)"
+    replace: "cgi.fix_pathinfo=0"
+
+- name: restart php-fpm
+  become: yes
+  service:
+    name: php7.2-fpm
+    state: restarted
