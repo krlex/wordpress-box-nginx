@@ -1,7 +1,9 @@
+#!/usr/bin/env ansible-playbook
+
 - name: Starting Provision
   hosts: all
   roles:
-     - php
      - nginx
      - mysql
+     - php
      - wordpress

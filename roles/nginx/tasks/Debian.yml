@@ -1,10 +1,4 @@
 ---
-- name: Update package cache
-  become: yes
-  package:
-    update_cache: yes
-    cache_valid_time: 3600
-
 - name: Install nginx
   become: yes
   with_items: "{{ debian_nginx_packages }}"

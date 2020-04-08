@@ -16,14 +16,14 @@
   become_user: root
   mysql_user:
     name: root
-    host: "{{ item }}"
+    # host: "{{ item }}"
     password: "{{ mysql_root_password }}"
     priv: "*.*:ALL,GRANT"
-  with_items:
-    - "{{ ansible_hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
+    #  with_items:
+    #    - "{{ ansible_hostname }}"
+    #    - 127.0.0.1
+    #    - ::1
+    #    - localhost
 
 - name: Copy .my.cnf file with root password credentials
   become: yes
