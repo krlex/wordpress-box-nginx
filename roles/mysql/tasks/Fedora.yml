@@ -29,7 +29,7 @@
   become: yes
   become_user: root
   template:
-    src: roles/mysql/templates/.my.cnf
+    src: roles/mysql/templates/my.cnf
     dest: /root/.my.cnf
     owner: root
     mode: 0600
