@@ -55,3 +55,11 @@
     - {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_db_name}}');"}
     - {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_db_user}}');"}
     - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_db_password}}');"}
+
+- name: Add Upload max in htaccess
+  become: yes
+  template:
+    src: "htaccess.tmp"
+    dest: "/var/www/{{server_hostname}}/.htaccess"
+    owner: www-data
+    group: www-data
