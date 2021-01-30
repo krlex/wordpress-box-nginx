@@ -9,7 +9,7 @@ Ansible playbook and roles for installing WordPress + Nginx + PHP + Postfix serv
 
 ### 1. Configure your web server for ssh
 
-Allow connections from your development machine to the web server over ssh. This is essential for ansible to work, so make sure to configure your remote or local server to allow connections via ssh. You may find `ssh-copy-id` helpful. 
+Allow connections from your development machine to the web server over ssh. This is essential for ansible to work, so make sure to configure your remote or local server to allow connections via ssh. You may find `ssh-copy-id` helpful.
 
 You can skip the step below if you're not using vagrant and replace `192.168.100.10` with your websever's IP address, but make sure you're able to SSH into your web server before continuing.
 
@@ -17,15 +17,15 @@ If you're using vagrant add these lines to your **Vagrantfile**:
 
 ```
 config.vm.network :forwarded_port, guest: 80, host: 4567
-config.vm.network "private_network", ip: "192.168.100.10"
+config.vm.network "private_network", ip: "10.1.10.10"
 ```
 
-This allows a connection to the machine over ssh on the specified IP address. `"192.168.100.10"` can be swapped out for a different IP, but make sure it matches whatever is set in your ansible inventory file. 
+This allows a connection to the machine over ssh on the specified IP address. `"192.168.100.10"` can be swapped out for a different IP, but make sure it matches whatever is set in your ansible inventory file.
 
 Run `vagrant ssh-config` to see where your key is stored, and create or update your host machine's `~/.ssh/config` file. It should looks something like this with your IdentityFile switched out:
 
 ```
-Host 192.168.100.10
+Host 10.1.10.10
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   IdentitiesOnly yes
@@ -41,7 +41,7 @@ For whatever reason, the Ubuntu team is not following the standard vagrant box c
 
 Verify that you're able to ssh into the machine:
 
-`ssh vagrant@192.168.100.10`
+`ssh vagrant@10.1.10.10`
 
 ### 2. Clone the repository
 
@@ -58,11 +58,11 @@ Create a hosts file to set your web server's IP or move `hosts.example` to `host
 mv hosts.example hosts
 ```
 
-Change `192.168.100.10` to your server's URL or the IP address of your virtual machine:
+Change `10.1.10.10` to your server's URL or the IP address of your virtual machine:
 
 ```
 [web-server]
-192.168.100.10
+10.1.10.10
 ```
 
 ### 4. Run the playbook
@@ -79,4 +79,4 @@ $ ansible-playbook playbook.yml -i hosts
 
 ### 5. Finish the install
 
-Open your web browser and navigate to [http://192.168.100.10](http://192.168.100.10) (or your webserver's IP) to finish the WordPress installation.
+Open your web browser and navigate to [http://10.1.10.10](http://10.1.10.10) (or your webserver's IP) to finish the WordPress installation.
