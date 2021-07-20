@@ -10,6 +10,7 @@ Vagrant.configure(API_VERSION) do |config|
       machine.vm.network "private_network", ip: servers["box_ip"]
       machine.vm.provider :virtualbox do |vb|
       machine.vm.provision :ansible do |ansible|
+      machine.vm.boot_timeout = 300
         vb.name = servers["name"]
         vb.memory = servers["memory"]
         vb.cpus = servers["cpu"]
