@@ -2,7 +2,7 @@
 
 - name: Starting Provision
   become: yes
-  hosts: all
+  hosts: all 
   roles:
      - nginx
      - mysql
