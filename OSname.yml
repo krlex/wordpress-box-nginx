@@ -1,7 +1,7 @@
 ---
 
  - name: debian
-   box: debian/buster64 
+   box: debian/bullseye64 
    box_ip: 10.1.10.10
    memory: 512
    cpu: 1
@@ -15,21 +15,21 @@
    #  provision: ./playbook.yml
 
    #- name: ubuntu
-   #  box: ubuntu/bionic64
+   #  box: ubuntu/jammy64
    #  box_ip: 10.1.10.20
    #  memory: 512
    #  cpu: 1
    #  provision: ./playbook.yml
 
    #- name: fedora
-   #  box: krlex/fedora31
+   #  box: krlex/fedora33
    #  box_ip: 10.1.10.30
    #  memory: 512
    #  cpu: 1
    #  provision: ./playbook.yml
 
    #- name: centos8
-   #  box: centos/7
+   #  box: centos/8
    #  box_ip: 10.1.10.40
    #  memory: 512
    #  cpu: 1

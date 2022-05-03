@@ -1,4 +1,10 @@
 ---
+- name: Update apt repo and cache on all Debian boxes
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+
 - name: Install nginx
   become: yes
   with_items: "{{ debian_nginx_packages }}"

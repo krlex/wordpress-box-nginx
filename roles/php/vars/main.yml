@@ -1,15 +1,15 @@
 debian_php_packages:
-    - name: php7.3
-    - name: php7.3-cli
-    - name: php7.3-common
-    - name: php7.3-readline
-    - name: php7.3-mysql
-    - name: php7.3-gd
-    - name: php7.3-curl
-    - name: php7.3-mbstring
-    - name: php7.3-json
-    - name: php7.3-opcache
-    - name: php7.3-fpm
+    - name: php7.4
+    - name: php7.4-cli
+    - name: php7.4-common
+    - name: php7.4-readline
+    - name: php7.4-mysql
+    - name: php7.4-gd
+    - name: php7.4-curl
+    - name: php7.4-mbstring
+    - name: php7.4-json
+    - name: php7.4-opcache
+    - name: php7.4-fpm
     - name: php-ssh2
     - name: mcrypt
 
