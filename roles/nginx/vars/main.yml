@@ -1,16 +1,20 @@
 debian_nginx_packages:
   - name: nginx
   - name: curl
+  - name: net-tools
 
 ubuntu_nginx_packages:
   - name: nginx
   - name: curl
+  - name: net-tools
 
 fedora_nginx_packages:
   - name: nginx
   - name: curl
+  - name: net-tools
 
 centos_nginx_packages:
   - name: epel-release
   - name: nginx
   - name: curl
+  - name: net-tools
